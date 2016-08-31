@@ -16,4 +16,9 @@ new IO(next => {
   }
 })
 .map(data => data.data.toString())
+.bind((prevdata, next) => {
+  fs.readFile('test/test.js', (error, data) => {
+    next(prevdata + data.toString())
+  })
+})
 .next(data => console.log(data))
