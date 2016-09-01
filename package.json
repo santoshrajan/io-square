@@ -1,6 +1,6 @@
 {
   "name": "io-square",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "IO Monad library for JavaScript",
   "main": "lib/io-square.js",
   "scripts": {
@@ -11,6 +11,10 @@
     "Monad",
     "JavaScript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/santoshrajan/io-square.git"
+  },
   "author": "Santosh Rajan",
   "license": "MIT"
 }
