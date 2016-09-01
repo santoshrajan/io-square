@@ -3,19 +3,17 @@ const IO = require('../lib/io-square')
 const fs = require('fs')
 
 new IO(next => {
-  fs.readFile('test/test.js', (error, data) => {
-    next({error: error, data: data})
-  })
+  fs.readFile('test/test.js', next)
 })
-.reject(data => {
-  if (data.error) {
+.reject((error, data) => {
+  if (error) {
     console.log('error')
     return true
   } else {
     return false
   }
 })
-.map(data => data.data.toString())
+.map((error, data) => data.toString())
 .bind((prevdata, next) => {
   fs.readFile('test/test.js', (error, data) => {
     next(prevdata + data.toString())
