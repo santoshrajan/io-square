@@ -20,6 +20,11 @@ Typically all the six functions above would have been one impure callback functi
 ## The Solution
 
 ```javascript
+
+const IO = require('io-square')
+const express = require('express')
+const app = express()
+ 
 new IO(callback => app.post('/', callback))                                 // Impure Function
   .reject((req, res) => {                                                   // Pure Function
     if (!req.body.email) {
@@ -49,3 +54,9 @@ new IO(callback => app.post('/', callback))                                 // I
     res.send({success: true})
   })
 ```
+
+## Install
+
+    $ npm install io-square --save
+
+
