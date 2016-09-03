@@ -15,6 +15,8 @@ I want a clean separation of pure and impure functions. In JavaScript your impur
 5. Do some validation - Pure function
 6. Create response and send - Pure function
 
+Typically all the six functions above would have been one impure callback function (callback hell). IO^2 will help you split monolothic callbacks into bite size pieces. Bonus, your pure functions can be easily tested.
+
 ## The Solution
 
 ```javascript
@@ -41,7 +43,7 @@ new IO(callback => app.post('/', callback))                                 // I
     }
     return [req, res]
   })
-  .then((req, res) => {                                                    //
+  .then((req, res) => {                                                    // Pure function
     // do something
     req.authSession.email = req.body.email
     res.send({success: true})
