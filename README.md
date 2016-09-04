@@ -15,7 +15,7 @@ I want a clean separation of pure and impure functions. In JavaScript your impur
 5. Do some validation - Pure function
 6. Create response and send - Pure function
 
-Typically all the six functions above would have been one impure callback function (callback hell). IO^2 will help you split monolothic callbacks into bite size pieces. Bonus, your pure functions can be easily tested.
+Typically all the six functions above would have been one impure callback function (callback hell). IO^2 will help you split monolothic callbacks into bite size pieces. Bonus, your pure functions can be easily tested. Another bonus, you write code the way you reason about your program.
 
 ## The Solution
 
@@ -60,3 +60,30 @@ new IO(callback => app.post('/', callback))                                 // I
     $ npm install io-square --save
 
 
+## How does it work?
+
+#### Every asynchronous function is wrapped in an IO instance.
+
+    new IO(callback => app.post('/', callback))
+
+Create an instance of an IO Object. Provide the constructor with a function. This function should take a
+callback as the only argument. In the function body, make your asynchronous call, and pass it the callback.
+
+#### Call methods of the IO instance with pure functions
+
+```javascript
+  .reject((req, res) => {
+    if (!req.body.email) {
+      res.redirect('/')
+      return null
+    }
+    return [req, res]
+  })
+```
+
+#### Available methods
+
+1. __reject__ - will stop propagation if the pure function given returns null. Otherwise passes on the values returned in an array, as arguments to the next method.
+2. __map__ - will take a set of values, modify them, and passes on a new set of values to the next method called.
+3. __bind__ - is used to bind another asynchronous (nested) function to the data flow. It takes a function whose arguments are the values passed and whose retunn value is a new IO instance. It will pass a new set of arguments to the next method. The original args passed to it + the arguments passed to the new IO instance callback. Look at this carefully in the bind example above.
+4. __then__ - is the final method you must always call. This will activate the whole flow. __then__ cannot be called multiple times. It is always the final call.
