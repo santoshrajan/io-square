@@ -85,5 +85,5 @@ callback as the only argument. In the function body, make your asynchronous call
 
 1. __reject__ - will stop propagation if the pure function given returns null. Otherwise passes on the values returned in an array, as arguments to the next method.
 2. __map__ - will take a set of values, modify them, and passes on a new set of values to the next method called.
-3. __bind__ - is used to bind another asynchronous (nested) function to the data flow. It takes a function whose arguments are the values passed and whose retunn value is a new IO instance. It will pass a new set of arguments to the next method. The original args passed to it + the arguments passed to the new IO instance callback. Look at this carefully in the bind example above.
+3. __bind__ - is used to bind another asynchronous (nested) function to the data flow. It takes a function whose arguments are the values passed and whose return value is a new IO instance. It will pass a new set of arguments to the next method. The original args passed to it + the arguments passed to the new IO instance callback. Look at this carefully in the bind example above.
 4. __then__ - is the final method you must always call. This will activate the whole flow. __then__ cannot be called multiple times. It is always the final call.
