@@ -1,12 +1,11 @@
 {
   "name": "io-square",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IO Monad library for JavaScript",
   "main": "lib/io-square.js",
   "scripts": {
     "test": "node test/test.js",
-    "compile": "babel --presets es2015,stage-0 -d lib/ src/",
-    "prepublish": "npm run compile"
+    "prepublish": "gulp"
   },
   "keywords": [
     "IO",
@@ -19,9 +18,15 @@
   },
   "author": "Santosh Rajan",
   "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
     "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-0": "^6.5.0"
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2"
   }
 }
