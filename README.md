@@ -2,11 +2,11 @@
 
 ## What is this?
 
-Right. So in JavaScript we now have promises, async/await, babelify etc. And I have a problem with these. If you don't have a problem with these, then probably, there is not much here for you.
+So in JavaScript we now have promises, async/await, babelify etc. And I have a problem with these. We still can't cleanly separate pure and impure functions.
 
 ## The problem
 
-I want a clean separation of pure and impure functions. In JavaScript your impure functions are callbacks (mostly). A typical scenario -
+We want a clean separation of pure and impure functions. In JavaScript your impure functions are callbacks (mostly). A typical scenario -
 
 1. Handle Post request - Impure function
 2. Validate Post Input - Pure function
@@ -66,8 +66,7 @@ new IO(callback => app.post('/', callback))                                 // I
 
     new IO(callback => app.post('/', callback))
 
-Create an instance of an IO Object. Provide the constructor with a function. This function should take a
-callback as the only argument. In the function body, make your asynchronous call, and pass it the callback.
+Create an instance of an IO Object. Provide the constructor with an io-function. This function should take a result function as the only argument. Make your asynchronous call, and in the callback call the result function with the result.
 
 #### Call methods of the IO instance with pure functions
 
