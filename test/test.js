@@ -15,5 +15,5 @@ const readFile = filename => {
 readFile('test/test.js')
   .error(e => console.log('first file err ' + e.message))
   .map(data => [data.toString()])
-  .bind(readFile('test/test.js'))
+  .bind(() => readFile('test/test.js'))
   .then((data, newData) => console.log(data + newData.toString()))

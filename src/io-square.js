@@ -40,10 +40,11 @@ class IO {
     return this
   }
 
-  bind (io) {
+  bind (ioFunc) {
     let saveThen = this.then
     this.then = cb => {
       saveThen((...args) => {
+        let io = ioFunc(...args)
         io.then((...ioargs) => cb(...args, ...ioargs))
       })
     }
