@@ -1,6 +1,6 @@
 {
   "name": "io-square",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "IO Monad library for JavaScript",
   "main": "lib/io-square.js",
   "scripts": {

@@ -23,7 +23,11 @@ class IO {
       saveThen((...args) => {
         let result = pred(...args)
         if (result !== null) {
-          cb(...result)
+          if (Array.isArray(result)) {
+            cb(...result)
+          } else {
+            cb(result)
+          }
         }
       })
     }
@@ -34,7 +38,12 @@ class IO {
     let saveThen = this.then
     this.then = cb => {
       saveThen((...args) => {
-        cb(...transform(...args))
+        let result = transform(...args)
+        if (Array.isArray(result)) {
+          cb(...result)
+        } else {
+          cb(result)
+        }
       })
     }
     return this

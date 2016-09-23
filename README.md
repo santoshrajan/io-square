@@ -34,12 +34,8 @@ new IO(callback => app.post('/', callback))                                 // I
     return [req, res]
   })
   .bind(req => new IO(callback => client.hget(req.body.email, callback)))  // Impure function
-  .reject((req, res, error, reply) => {                                    // Pure function
-    if (error) {
-      res.send({error: true, message: 'Could not get user record from db'})
-      return null
-    }
-    return [req, res, reply]
+  .error(err => {                                                          // Pure function
+    res.send({error: true, message: 'Could not get user record from db'})
   })
   .reject((req, res, reply) => {                                           // Pure function
     if (reply.authorised !== true) {
@@ -66,7 +62,17 @@ new IO(callback => app.post('/', callback))                                 // I
 
     new IO(callback => app.post('/', callback))
 
-Create an instance of an IO Object. Provide the constructor with an io-function. This function should take a result function as the only argument. Make your asynchronous call, and in the callback call the result function with the result.
+Create an instance of an IO Object. Provide the constructor with an io-function. This function should take a result function as the only argument. In the asynchronous call, pass the result function ass the callback.
+
+
+#### Provide an error function if the result 'maybe' an Error instance
+
+```javascript
+  .error(err => {                                                          // Pure function
+    res.send({error: true, message: 'Could not get user record from db'})
+  })
+```
+
 
 #### Call methods of the IO instance with pure functions
 
@@ -82,7 +88,7 @@ Create an instance of an IO Object. Provide the constructor with an io-function.
 
 #### Available methods
 
-1. __reject__ - will stop propagation if the pure function given returns null. Otherwise passes on the values returned in an array, as arguments to the next method.
+1. __reject__ - will stop propagation if the pure function given returns null. Otherwise passes on the value(s) returned as arguments to the next method. Multiple value should be returned in an Array.
 2. __map__ - will take a set of values, modify them, and passes on a new set of values to the next method called.
 3. __bind__ - is used to bind another asynchronous (nested) function to the data flow. It takes a function whose arguments are the values passed and whose return value is a new IO instance. It will pass a new set of arguments to the next method. The original args passed to it + the arguments passed to the new IO instance callback. Look at this carefully in the bind example above.
 4. __then__ - is the final method you must always call. This will activate the whole flow. __then__ cannot be called multiple times. It is always the final call.
