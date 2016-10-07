@@ -60,6 +60,15 @@ class IO {
     return this
   }
 
+  static timer (s) {
+    var intervalId
+    var timer = new IO(cb => {
+      intervalId = setInterval(cb, Math.floor(s * 1000))
+    })
+    timer.clear = () => clearInterval(intervalId)
+    return timer
+  }
+
 }
 
 module.exports = IO

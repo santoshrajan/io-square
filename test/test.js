@@ -1,5 +1,6 @@
 
 const IO = require('../lib/io-square')
+
 const fs = require('fs')
 
 const readFile = filename => {
